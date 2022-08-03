@@ -2,18 +2,26 @@
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Effect": "Allow",
             "Action": [
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:ListImages",
-                "ecr:BatchGetImage",
-                "ecr:DescribeImages",
-                "ecr:DescribeRepositories",
-                "ecr:GetRepositoryPolicy"
+                "ecr:*",
+                "cloudtrail:LookupEvents"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateServiceLinkedRole"
             ],
             "Resource": "*",
-            "Effect": "Allow"
+            "Condition": {
+                "StringEquals": {
+                    "iam:AWSServiceName": [
+                        "replication.ecr.amazonaws.com"
+                    ]
+                }
+            }
         }
     ]
 }
