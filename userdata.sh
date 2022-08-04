@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#installing git
+yum install git -y
+
 #installing docker
 yum install -y docker
 
