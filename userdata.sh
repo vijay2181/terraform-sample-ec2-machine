@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#update the server
+yum update -y
+
 #installing git
 yum install git -y
 
