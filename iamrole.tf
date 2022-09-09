@@ -3,18 +3,31 @@ resource "aws_iam_role" "access_role" {
   assume_role_policy = file("./policy/assumerolepolicy.json")
 }
 
-resource "aws_iam_policy" "policy-1" {
+resource "aws_iam_policy" "policy1" {
   name        = "ECR-Policy"
   description = "Policy for pulling ECR images"
   policy      = file("./policy/ecrPullPushPolicy.json")
 }
 
+resource "aws_iam_policy" "policy2" {
+  name        = "EC2-Policy"
+  description = "Policy for EC2"
+  policy      = file("./policy/ec2policy.json")
+}
+
+
+
 resource "aws_iam_policy_attachment" "policy-attach1" {
   name       = "policy-attachment1"
   roles      = ["${aws_iam_role.access_role.name}"]
-  policy_arn = aws_iam_policy.policy-1.arn
+  policy_arn = aws_iam_policy.policy1.arn
 }
 
+resource "aws_iam_policy_attachment" "policy-attach2" {
+  name       = "policy-attachment2"
+  roles      = ["${aws_iam_role.access_role.name}"]
+  policy_arn = aws_iam_policy.policy2.arn
+}
 
 resource "aws_iam_instance_profile" "vijay_profile" {
   name = "vijay_profile"
